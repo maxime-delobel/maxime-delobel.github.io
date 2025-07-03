@@ -2,7 +2,7 @@
 layout: page
 title: Posts
 tagline: Overview of recent posts
-permalink: /posts.html
+permalink: /content.html
 ref: now
 order: 2
 ---

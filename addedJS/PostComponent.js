@@ -20,7 +20,7 @@ export default class PostComponent {
     if (searchText !== '') {
       // posts opvragen
       try {
-        const response = await fetch(url);
+        const response = await fetch(this.#url);
         if (!response.ok) {
           throw new Error(`HTTP error: ${response.status}`);
         }
