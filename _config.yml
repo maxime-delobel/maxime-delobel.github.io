@@ -1,7 +1,6 @@
-title: TODO
-description: TODO.
+title: Maxime's Personal Blog
+description: Join Maxime Delobel on a journey from neuroscience to cybersecurity. This blog documents my learning process, sharing beginner-friendly insights and notes to make the world of cybersecurity more approachable for newcomers like me.
 show_downloads: true
-
 baseurl:  # change this to the subpath of your site, e.g. /blog. Leave it empty if you don't need it.
 url: "https://maxime-delobel.github.io" # change this to the base hostname & protocol for your site
 
@@ -16,10 +15,8 @@ cayman-blog:
 theme: # leave it empty
 
 # social
-author: lorepirri
+author: Maxime Delobel
 image: /thumbnail-jumbo.png
-twitter:
-  username: lorepirri
 
 plugins:
   - jekyll-target-blank
@@ -27,4 +24,4 @@ plugins:
 target-blank:
     rel: nofollow
 
-header_page_refs: ['now', 'about', 'contact']
+header_page_refs: ['Posts', 'about', 'contact']
