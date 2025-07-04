@@ -1,5 +1,5 @@
 function sendMail(event) {
-    event.preventDefault(); // ✅ Stop form from submitting to server
+    event.preventDefault(); 
 
     let params = {
         subject: document.getElementById("subject").value,
