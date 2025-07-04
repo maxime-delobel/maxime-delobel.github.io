@@ -18,7 +18,7 @@ order: 2
 <script src="/addedJS/mailScript.js"></script>
 <div class="formDiv">
 <p>Having any issues, questions or you want to connect? Feel free to leave a message using the form below!</p>
-<form action="#" method="post", autocomplete="on">
+<form action="" method="post" autocomplete="on">
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" required><br>
 
