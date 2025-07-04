@@ -11,7 +11,7 @@ order: 0
 <h4>Post Browser</h4>
 <div class="input-field">
                     <input placeholder="Search" id="searchText" type="text" required class="validate">
-                    <a id="searchBtn">Search</a>
+                    <button id="searchBtn">Search</button>
                 </div>
    <div class="container">
       
