@@ -3,8 +3,8 @@ layout: page
 title: Posts
 tagline: Overview of recent posts
 permalink: /posts.html
-ref: now
-order: 2
+ref: Posts
+order: 0
 ---
 
  <!-- skeleton-->

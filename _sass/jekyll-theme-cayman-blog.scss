@@ -112,6 +112,30 @@ a {
   font-size: 1.18rem;
 }
 
+.formDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.formDiv form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+}
+.formDiv label,
+.formDiv input,
+.formDiv textarea,
+.formDiv button {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.formDiv p {
+  text-align: center;
+}
+
 
 
 .page-header {

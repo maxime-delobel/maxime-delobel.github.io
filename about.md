@@ -3,8 +3,8 @@ layout: page
 title: About
 tagline: From Neuroscience to Cybersecurity – A Learning Journey in Progress
 permalink: /about.html
-ref: about
-order: 0
+ref: About
+order: 1
 ---
 <img src="images/hoofd.jpg" alt="Maxime Delobel" style="display: block; margin:0 auto; border-radius: 50%; width: 40%; height: 40%;" >
 
