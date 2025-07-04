@@ -221,7 +221,7 @@ DB_PASSWORD=SuperDuperPass123
 
 <h2>Step 5: Gaining root on the box</h2>
 
-<p>Exploring the home directory of admin, I noticed a binary file: a.out , which has SUID set. This basically means that you can run it as the file owner which in this case is root. So, lets's run it and see what happens! We are root! Congratulations, you have successfully pawned this box!</p>
+<p>Exploring the home directory of admin, I noticed a binary file: a.out , which has SUID set. This basically means that you can run it as the file owner which in this case is root. So, lets's run it and see what happens! We are root! Congratulations, you have successfully pwned this box!</p>
 
 <img src="/images/HTB-2million/2million-privesc.png" alt="privilege escalation suid" class="postImage 2millionImage">
 
