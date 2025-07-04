@@ -12,8 +12,28 @@ export default class PostComponent {
       this.#searchPosts(document.getElementById('searchText').value);
     };
     this.#navigatieToHtml();
-    this.#searchPosts();
+    this.#loadRecentPosts();
     this.#activePage =1;
+  }
+
+  async #loadRecentPosts(){
+    try{
+        const response = await fetch(this.#url);
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+         const resultJSON = await response.json();
+         if (resultJSON.Response === 'True') {
+          this.#postRepository.addPosts(resultJSON.Data);
+          this.#postsToHtml();
+        } else{
+          this.#showMessage('No posts have been published yet!');
+        }
+    }catch(rejectValue){
+      this.#showMessage(
+          `Something went wrong retrieving the post data: ${rejectValue}`
+        );
+    }
   }
 
   async #searchPosts(searchText) {
@@ -28,8 +48,8 @@ export default class PostComponent {
         if (resultJSON.Response === 'True') {
           this.#postRepository.addPosts(resultJSON.Data);
           this.#postsToHtml();
-        } else {
-          this.#showMessage('No films found for this search!!');
+        } else{
+          this.#showMessage('No posts found for this search!!');
         }
       } catch (rejectValue) {
         this.#showMessage(
