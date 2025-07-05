@@ -230,4 +230,6 @@ DB_PASSWORD=SuperDuperPass123
 <img src="/images/HTB-2million/2million-ghidra_beter.webp" alt="exploring the binary in Ghidra" class="postImage 2millionImage">
 
 <h2>Final thoughts</h2>
-<p> In general, it was a fun box to tackle and a good learning experience. It's quite a lengthy box and a lot of techniques need to be used to successfully pwn it. In my opinion, it is a harder box than a lot of other easy boxes on HTB due to the amount of steps it takes to finally gain root.
+<p> In general, it was a fun box to tackle and a good learning experience. It's quite a lengthy box and a lot of techniques need to be used to successfully pwn it. In my opinion, it is a harder box than a lot of other easy boxes on HTB due to the amount of steps it takes to finally gain root.</p>
+
+[Go to the Home Page]({{ '/' | absolute_url }})
