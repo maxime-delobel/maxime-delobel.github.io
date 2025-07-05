@@ -98,7 +98,7 @@ echo "MDJNUFEtOVdBTUUtQ1k4SzktNUM4RDY=" | base64 -d
 <p>Once we get inside, we see the following page we can explore:</p>
 <img src="/images/HTB-2million/HTB-2million-Dashboard.webp" alt="HTB dashboard page" class="postImage 2millionImage">
 
-<p>The Access tab seems very interesting. When we click on the download button for the connection tab, we download our .ovpn file. Could this be vulnerable and expose some other files located on the server? Let's find out by firing up Burpsuite and intercepting the request. (if you have no clue on how to set up Burpsuite and FoxyProxy I suggest the following article:)<span class="url"><a href="https://hannrul.medium.com/install-and-configuring-foxyproxy-with-burpsuite-5f53f55287db">Configuring FoxyProxy and Burpsuite</span></p>
+<p>The Access tab seems very interesting. When we click on the download button for the connection tab, we download our .ovpn file. Could this be vulnerable and expose some other files located on the server? Let's find out by firing up Burpsuite and intercepting the request. (if you have no clue on how to set up Burpsuite and FoxyProxy I suggest the following article:)<span class="url"><a href="https://hannrul.medium.com/install-and-configuring-foxyproxy-with-burpsuite-5f53f55287db">Configuring FoxyProxy and Burpsuite</a></span></p>
 
 <img src="/images/HTB-2million/HTB-2million-Burpsuite_downloadOVPN.webp" alt="Burpsuite intercepted request" class="postImage 2millionImage">
 
