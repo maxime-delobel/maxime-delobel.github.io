@@ -55,7 +55,7 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 <h2>Step 2: Enumerating the website</h2>
 <p> Let's start with visiting the website. The website looks like the legacy HTB page where you had to hack your way in. After some investigation, looks like we need to do the same thing for this box too. Pressing on join HTB we get directed to the following page:</p>
-<img src="/images/HTB-2million/HTB_invite.png" alt="HTB invite page" class="postImage 2millionImage">
+<img src="/images/HTB-2million/HTB_invite.webp" alt="HTB invite page" class="postImage 2millionImage">
 
 <p>When we open the developer tools and go to the network tab (refresh the page). There is a inviteapi JS script that seems interesting. Double clicking it brings us to its code which we can see is minified/obfuscated:</p>
 
@@ -67,11 +67,11 @@ function(p,a,c,k,e,d){e=function(c){return c.toString(36)};if(!''.replace(/^/,St
 
 <p>To understand this JS script, we need to deminify and especially deobfuscate it. This can be done using the following website: <span class="url">https://lelinhtinh.github.io/de4js/</span>. We get the following result:</p>
 
-<img src="/images/HTB-2million/HTB_2million_DeobfusctedJS.png" alt="Deobfuscated JS" class="postImage 2millionImage">
+<img src="/images/HTB-2million/HTB_2million_DeobfusctedJS.webp" alt="Deobfuscated JS" class="postImage 2millionImage">
 
 <p>It is clear now that we have a JS function that can make us an invite code. So, when we enter this function in the JS console of our browser, we should get a code:</p>
 
-<img src="/images/HTB-2million/HTB_2million_Encrypted_invitecode.png" alt="encrypted invite code" class="postImage 2millionImage">
+<img src="/images/HTB-2million/HTB_2million_Encrypted_invitecode.webp" alt="encrypted invite code" class="postImage 2millionImage">
 
 <p>Doing this, we get encrypted data (encryption algorithm ROT13). So we need to decipher this. I like to use online tools first. Just google a ROT13 decoder and we then get the following output:</p>
 <pre>
@@ -96,19 +96,19 @@ echo "MDJNUFEtOVdBTUUtQ1k4SzktNUM4RDY=" | base64 -d
 <h2>Step 4: Elevation of user rights to admin</h2>
 
 <p>Once we get inside, we see the following page we can explore:</p>
-<img src="/images/HTB-2million/HTB-2million-Dashboard.png" alt="HTB dashboard page" class="postImage 2millionImage">
+<img src="/images/HTB-2million/HTB-2million-Dashboard.webp" alt="HTB dashboard page" class="postImage 2millionImage">
 
 <p>The Access tab seems very interesting. When we click on the download button for the connection tab, we download our .ovpn file. Could this be vulnerable and expose some other files located on the server? Let's find out by firing up Burpsuite and intercepting the request. (if you have no clue on how to set up Burpsuite and FoxyProxy I suggest the following article:)<span class="url"><a href="https://hannrul.medium.com/install-and-configuring-foxyproxy-with-burpsuite-5f53f55287db">Configuring FoxyProxy and Burpsuite</span></p>
 
-<img src="/images/HTB-2million/HTB-2million-Burpsuite_downloadOVPN.png" alt="Burpsuite intercepted request" class="postImage 2millionImage">
+<img src="/images/HTB-2million/HTB-2million-Burpsuite_downloadOVPN.webp" alt="Burpsuite intercepted request" class="postImage 2millionImage">
 
 <p>Lets send this request to repeater and try to change a few things to see where it brings us. The first thing I tried was to change the get request to /etc/passwd. However, we had no success and stumbled upon a 301 status code. The next step I did was to enumerate the API as follows:</p>
 
-<img src="/images/HTB-2million/HTB-2million_API_enumeration.png" alt="API enumeration" class="postImage 2millionImage">
+<img src="/images/HTB-2million/HTB-2million_API_enumeration.webp" alt="API enumeration" class="postImage 2millionImage">
 
 <p> This gave us the API route map which we can use in curl requests. Especially, the API routes under admin seem promising! Let's test the first one with curl. This told us we were not admin as expected:</p>
 
-<img src="/images/HTB-2million/2million_admin_auth.png" alt="get request admin auth" class="postImage 2millionImage">
+<img src="/images/HTB-2million/2million_admin_auth.webp" alt="get request admin auth" class="postImage 2millionImage">
 
 <p>The put request also seems very promising so let's test it. We get the following output:</p>
 
@@ -147,7 +147,7 @@ curl http://2million.htb/api/v1/admin/auth -H "Cookie: PHPSESSID=gahs33mmu3k93ls
 <h2>Step 4: Gaining a reverse shell</h2>
 <p>So whats the point of being admin now? Nothing seems to change on the dashboard. This was the trickiest part of the box to figure out. The only thing we haven't used is the POST request under admin:</p>
 
-<img src="/images/HTB-2million/HTB-2million_API_enumeration.png" alt="API enumeration" class="postImage 2millionImage">
+<img src="/images/HTB-2million/HTB-2million_API_enumeration.webp" alt="API enumeration" class="postImage 2millionImage">
 
 <p>So, my guess is that this part of the API will now be accessible for us. Let's test that hypothesis with a curl command.</p>
 
@@ -223,11 +223,11 @@ DB_PASSWORD=SuperDuperPass123
 
 <p>Exploring the home directory of admin, I noticed a binary file: a.out , which has SUID set. This basically means that you can run it as the file owner which in this case is root. So, lets's run it and see what happens! We are root! Congratulations, you have successfully pwned this box!</p>
 
-<img src="/images/HTB-2million/2million-privesc.png" alt="privilege escalation suid" class="postImage 2millionImage">
+<img src="/images/HTB-2million/2million-privesc.webp" alt="privilege escalation suid" class="postImage 2millionImage">
 
 <p> Note that it is often not advised to randomly run an executable without having an idea on what it does! But because it is a box on HTB, I did not really care. However, it is best to first inspect the binary file using a tool like Ghidra. Doing this, we can see that the main function of the binary sets or uid and gid to 0 making us root and spawns a bash shell!</p>
 
-<img src="/images/HTB-2million/2million-ghidra.png" alt="exploring the binary in Ghidra" class="postImage 2millionImage">
+<img src="/images/HTB-2million/2million-ghidra.webp" alt="exploring the binary in Ghidra" class="postImage 2millionImage">
 
 <h2>Final thoughts</h2>
 <p> In general, it was a fun box to tackle and a good learning experience. It's quite a lengthy box and a lot of techniques need to be used to successfully pwn it. In my opinion, it is a harder box than a lot of other easy boxes on HTB due to the amount of steps it takes to finally gain root.
