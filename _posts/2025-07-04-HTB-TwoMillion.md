@@ -173,7 +173,7 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
 <p>Let's go over how it works. Let's hypothetically suggest that the server is running this piece of code to generate the ovpn file:</p>
 
 <pre>
-<?php system("vpn-create --user=$username"); ?>
+&lt;?php system("vpn-create --user=$username"); ?&gt;
 </pre>
 
 <p>$username is specified using our JSON construct. Thus, when we send our payload the following gets executed:
