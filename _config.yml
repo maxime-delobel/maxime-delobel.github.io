@@ -25,3 +25,6 @@ target-blank:
     rel: nofollow
 
 header_page_refs: ['Posts', 'About', 'Contact']
+
+plugins:
+  - jekyll-seo-tag
