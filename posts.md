@@ -20,9 +20,9 @@ order: 0
  <div id="posts"></div>
       <div id="navigatie" class="center">
         <p id="pageNumber"></p>
-        <p>
-          <input type="button" value="&lt;" id="vorige" title="Vorige" />
-          <input type="button" value="&gt;" id="volgende" title="Volgende" />
+        <p id="buttonContainer">
+          <input type="button" value="Previous" id="vorige" title="Vorige" />
+          <input type="button" value="Next" id="volgende" title="Volgende" />
         </p>
       </div>
     </div>

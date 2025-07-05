@@ -1,10 +1,11 @@
 {
     "Data": [
         {
-        "Id":"",
-        "Title": "",
-        "Date": "", 
-        "Author": "",
-        "ContentPreview": ""
+        "Id":"0",
+        "Title": "HTB-2Million",
+        "Date": "2025-07-04", 
+        "Author": "Maxime Delobel",
+        "ContentPreview": "In 2Million, we decoded a JS invite code to access the site, exploited an API to escalate to admin, injected commands for a reverse shell, found admin credentials, and gained root.",
+        "Url": "/2025/07/04/HTB-TwoMillion.html"
      }]
         }

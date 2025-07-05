@@ -23,7 +23,7 @@ export default class PostComponent {
           throw new Error(`HTTP error: ${response.status}`);
         }
          const resultJSON = await response.json();
-         if (resultJSON.Response === 'True') {
+         if (resultJSON.Data) {
           this.#postRepository.addPosts(resultJSON.Data);
           this.#postsToHtml();
         } else{
@@ -44,27 +44,36 @@ export default class PostComponent {
         if (!response.ok) {
           throw new Error(`HTTP error: ${response.status}`);
         }
-        const resultJSON = await response.json();
-        if (resultJSON.Response === 'True') {
+        const resultJSON = await response.json();  
+        const filteredPosts = resultJSON.Data.filter(post => post.Title.toLowerCase().includes(searchText.toLowerCase()));
+        if(filteredPosts.length > 0){
           this.#postRepository.addPosts(resultJSON.Data);
-          this.#postsToHtml();
-        } else{
-          this.#showMessage('No posts found for this search!!');
+          this.#postsToHtml("searchText");
         }
-      } catch (rejectValue) {
+        else{
+          this.#showMessage('No posts found for this search!');
+        }
+        }    
+       
+       catch (rejectValue) {
         this.#showMessage(
           `Something went wrong retrieving the post data: ${rejectValue}`
         );
       }
     } else {
-      this.#showMessage('The search can not be empty!!');
+      this.#showMessage('The search can not be empty!');
     }
   }
 
-   #postsToHtml() {
-    const posts = this.#postRepository.geefPosts(
+   #postsToHtml(searchText) {
+    let posts = "";
+    if(!searchText){
+      posts = this.#postRepository.posts;
+    }else{
+       posts = this.#postRepository.geefPosts(
       document.getElementById("searchText").value
     );
+    }
     const postDiv = document.getElementById('posts');
     postDiv.innerHTML = '';
     const ulElement = document.createElement("ul");
@@ -92,10 +101,13 @@ export default class PostComponent {
      aElement.setAttribute("title", `${post.Title}`);
      aElement.innerText =  `${post.Title}`;
      pElement.innerText = `${post.ContentPreview}`;
+     ulElement.classList.add("post-list");
      h2Element.appendChild(aElement);
      liElement.appendChild(spanElement);
      liElement.appendChild(h2Element);
      liElement.appendChild(pElement);
+     ulElement.appendChild(liElement);
+     postDiv.appendChild(ulElement);
 
     });
   

@@ -4,15 +4,17 @@ export default class Post{
     #Date;
     #Author;
     #ContentPreview;
+    #Url;
     
     
 
-    constructor(id, title, date, author, contentPreview) {
+    constructor(id, title, date, author, contentPreview, url) {
         this.#Id = id;
         this.#Title = title;
         this.#ContentPreview = contentPreview;
         this.#Author = author;
         this.#Date = date;
+        this.#Url = url;
     }
 
     get Id() {
@@ -33,5 +35,9 @@ export default class Post{
 
     get Date() {
         return this.#Date;
+    }
+
+    get Url(){
+        return this.#Url;
     }
 }

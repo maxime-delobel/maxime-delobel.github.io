@@ -118,6 +118,32 @@ a {
   width: 100%;
 }
 
+#navigatie{
+ display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 2rem auto;
+}
+
+#buttonContainer{
+  display: flex;
+  justify-content: space-around;
+  column-gap: 4%;
+
+}
+
+#buttonContainer input{
+  width: 7rem;
+
+}
+
+#pageNumber{
+  display: none;
+}
+
+#aboutText {
+  text-align: center;
+}
+
+//einde
+
 
 
 .formDiv {
