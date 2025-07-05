@@ -65,7 +65,7 @@ function(p,a,c,k,e,d){e=function(c){return c.toString(36)};if(!''.replace(/^/,St
 
 <h2>Step 3: Breaking in in the HTB legacy platform</h2>
 
-<p>To understand this JS script, we need to deminify and especially deobfuscate it. This can be done using the following website: <span class="url">https://lelinhtinh.github.io/de4js/</span>. We get the following result:</p>
+<p>To understand this JS script, we need to deminify and especially deobfuscate it. This can be done using the following website: <span class="url"><a href="https://lelinhtinh.github.io/de4js/">JS Deobfuscation tool</a></span>. We get the following result:</p>
 
 <img src="/images/HTB-2million/HTB_2million_DeobfusctedJS.webp" alt="Deobfuscated JS" class="postImage 2millionImage">
 
@@ -227,7 +227,7 @@ DB_PASSWORD=SuperDuperPass123
 
 <p> Note that it is often not advised to randomly run an executable without having an idea on what it does! But because it is a box on HTB, I did not really care. However, it is best to first inspect the binary file using a tool like Ghidra. Doing this, we can see that the main function of the binary sets or uid and gid to 0 making us root and spawns a bash shell!</p>
 
-<img src="/images/HTB-2million/2million-ghidra.webp" alt="exploring the binary in Ghidra" class="postImage 2millionImage">
+<img src="/images/HTB-2million/2million-ghidra_beter.webp" alt="exploring the binary in Ghidra" class="postImage 2millionImage">
 
 <h2>Final thoughts</h2>
 <p> In general, it was a fun box to tackle and a good learning experience. It's quite a lengthy box and a lot of techniques need to be used to successfully pwn it. In my opinion, it is a harder box than a lot of other easy boxes on HTB due to the amount of steps it takes to finally gain root.
