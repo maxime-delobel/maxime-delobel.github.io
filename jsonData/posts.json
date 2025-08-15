@@ -7,5 +7,12 @@
         "Author": "Maxime Delobel",
         "ContentPreview": "In 2Million, we decoded a JS invite code to access the site, exploited an API to escalate to admin, injected commands for a reverse shell, found admin credentials, and gained root.",
         "Url": "/2025/07/04/HTB-TwoMillion.html"
+     },  {
+        "Id":"0",
+        "Title": "HTB-Cap",
+        "Date": "2025-08-15", 
+        "Author": "Maxime Delobel",
+        "ContentPreview": "In Cap, we found a pcap file exposing FTP creds, logged in for user access, exploited Python’s cap_setuid to run a script as root, and obtained the root flag.",
+        "Url": "/2025/08/15/HTB-Cap.html"
      }]
         }
