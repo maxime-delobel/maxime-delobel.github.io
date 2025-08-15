@@ -19,7 +19,7 @@
         "Title": "HTB-Code",
         "Date": "2025-08-15", 
         "Author": "Maxime Delobel",
-        "ContentPreview": "In Cap, we  exploited a Python sandbox to execute code, got a reverse shell, retrieved SSH credentials from the database, and bypassed a backup filter to grab the root flag.",
+        "ContentPreview": "In Code, we  exploited a Python sandbox to execute code, got a reverse shell, retrieved SSH credentials from the database, and bypassed a backup filter to grab the root flag.",
         "Url": "/2025/08/15/HTB-Code.html"
      }]
         }
