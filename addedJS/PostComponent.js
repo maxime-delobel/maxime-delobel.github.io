@@ -68,7 +68,7 @@ export default class PostComponent {
    #postsToHtml(searchText) {
     let posts = "";
     if(!searchText){
-      posts = this.#postRepository.posts;
+      posts = this.#postRepository.geefPosts();
     }else{
        posts = this.#postRepository.geefPosts(
       document.getElementById("searchText").value
