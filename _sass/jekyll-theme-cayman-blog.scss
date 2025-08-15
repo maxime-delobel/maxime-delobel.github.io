@@ -112,6 +112,10 @@ a {
   font-size: 1.18rem;
 }
 
+#hidden{ //dirty fix to get rid of ... on homepage
+  display: none;
+}
+
 
 .postImage{
   display: block;
