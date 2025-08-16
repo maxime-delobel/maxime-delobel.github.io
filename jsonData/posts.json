@@ -21,5 +21,12 @@
         "Author": "Maxime Delobel",
         "ContentPreview": "In Code, we  exploited a Python sandbox to execute code, got a reverse shell, retrieved SSH credentials from the database, and bypassed a backup filter to grab the root flag.",
         "Url": "/2025/08/15/HTB-Code.html"
+     },  {
+        "Id":"3",
+        "Title": "HTB-Nocturnal",
+        "Date": "2025-08-16", 
+        "Author": "Maxime Delobel",
+        "ContentPreview": "In Nocturnal, we found creds by fuzzing a web application, exploited PHP for database access, cracked hashes for SSH, exploited ISPConfig, and gained root.",
+        "Url": "/2025/08/15/HTB-Code.html"
      }]
         }

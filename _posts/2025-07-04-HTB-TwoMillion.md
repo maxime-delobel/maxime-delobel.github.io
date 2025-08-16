@@ -2,9 +2,14 @@
 layout: post
 title: HTB-TwoMillion
 ---
-<p>In 2Million, we decoded a JS invite code to access the site, exploited an API to escalate to admin, injected commands for a reverse shell, found admin credentials, and gained root.</p>
+
+
+<p>In 2Million, we decoded a JS invite to access the site, exploited an API escalating to admin, injected commands for a reverse shell, found admin credentials, and gained root.</p>
+
 <h2>Introduction</h2>
+
 <p>In this post, I will walk you through the exploitation of the easy HTB machine called "2million". Overall, it was a fun experience but requires a lot of steps and is therefore a bit harder than other easy boxes on HTB.
+
 <h2>Step 1: Running an Nmap scan on the target</h2>
 <p>As always, we start with an Nmap scan on the target. I like to use the options -sC and -sV to run some Nmap scripts and do service detection, respectively. This allows us to capture a lot of information as a starting point.</p>
 <p>We get the following output:</p>

@@ -5,6 +5,7 @@ tagline: Overview of recent posts
 permalink: /posts.html
 ref: Posts
 order: 0
+description: overview of posts in this website and post browser functionality to search relevant posts
 ---
 
  <!-- skeleton-->
