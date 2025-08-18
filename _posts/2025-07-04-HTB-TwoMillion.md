@@ -1,6 +1,7 @@
 ---
 layout: post
 title: HTB-TwoMillion
+description: Walkthrough Writeup for HTB-TwoMillion
 ---
 
 

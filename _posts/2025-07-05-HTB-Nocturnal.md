@@ -1,7 +1,7 @@
 ---
 layout: post
 title: HTB-Nocturnal
-description: Walkthrough of HTB machine Nocturnal
+description: Walkthrough writeup of HTB machine Nocturnal
 ---
 
 <p>In Nocturnal, we found creds by fuzzing a web application, exploited PHP for database access, cracked hashes for SSH, exploited ISPConfig, and gained root.</p>

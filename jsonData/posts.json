@@ -35,5 +35,12 @@
         "Author": "Maxime Delobel",
         "ContentPreview": "In THM-Billing, we exploited a MagnusBilling command injection, crafted a reverse shell, abused fail2ban to escalate privileges, added SUID to bash, and gained root access.",
         "Url": "/2025/08/18/THM-Billing.html"
+     },{
+        "Id":"5",
+        "Title": "THM-BoilerCTF",
+        "Date": "2025-08-18", 
+        "Author": "Maxime Delobel",
+        "ContentPreview": "In THM-BoilerCTF, we exploited a Joomla command injection for a reverse shell, found SSH creds in logs, pivoted from one user to another, abused SUID, and gained root access.",
+        "Url": "/2025/08/18/THM-BoilerCTF.html"
      }]
         }
