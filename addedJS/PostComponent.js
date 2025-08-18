@@ -26,7 +26,9 @@ constructor() {
     // Set up click handlers
     if(document.getElementById('searchBtn')){
         document.getElementById('searchBtn').onclick = () => {
-            this.#searchPosts(document.getElementById('searchText').value);
+          this.#activePage = 1; 
+          sessionStorage.setItem('activePage', this.#activePage);
+          this.#searchPosts(document.getElementById('searchText').value);
         };
     }
 
