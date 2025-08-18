@@ -125,7 +125,7 @@ manual                  [Status: 301, Size: 313, Words: 20, Lines: 10, Duration:
 :: Progress: [114442/114442] :: Job [1/1] :: 680 req/sec :: Duration: [0:03:33] :: Errors: 0 ::
 </pre>
 <p>Doing this, I found out that a joomla CMS is being used. Therefore, I enumerated its version by surfing to: http://10.10.182.94/joomla/administrator/manifests/files/joomla.xml. The version used in this box was version 3.6. After a quick vulnerability search on Google, I could not find any useful vulnerabilities. This was a dead end. Surfing /joomla/adminitrator presented us with a login portal.</p>
-<img src="/" alt="Joomla login portal" class="postImage">
+<img src="/images/boiler/boiler_joomla_login_portal.webp" alt="Joomla login portal" class="postImage">
 <p>Thereafter, I decided to surf to the other webserver located on port 10000. Again, we were greeted by yet another login portal:</p>
 <img src="/images/boiler/boiler_webservice_port_10000.png" alt="webadmin web portal" class="postImage">
 
