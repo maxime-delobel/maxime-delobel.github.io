@@ -27,6 +27,13 @@
         "Date": "2025-08-16", 
         "Author": "Maxime Delobel",
         "ContentPreview": "In Nocturnal, we found creds by fuzzing a web application, exploited PHP for database access, cracked hashes for SSH, exploited ISPConfig, and gained root.",
-        "Url": "/2025/08/15/HTB-Code.html"
+        "Url": "/2025/07/05/HTB-Nocturnal.html"
+     }, {
+        "Id":"4",
+        "Title": "THM-Billing",
+        "Date": "2025-08-18", 
+        "Author": "Maxime Delobel",
+        "ContentPreview": "In THM-Billing, we exploited a MagnusBilling command injection, crafted a reverse shell, abused fail2ban to escalate privileges, added SUID to bash, and gained root access.",
+        "Url": "/2025/08/18/THM-Billing.html"
      }]
         }
