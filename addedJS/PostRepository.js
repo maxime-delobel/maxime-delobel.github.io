@@ -17,13 +17,27 @@ export default class PostRepository {
     return this.#posts.find((post) => post.Id === id);
   }
 
-  geefPosts(zoekterm){
-    const sortByDateDesc = (a, b) => new Date(b.Date) - new Date(a.Date);
-    if(!zoekterm){
-        return this.#posts.sort(sortByDateDesc).slice(0, 5);
+  geefPosts(zoekterm,  page = 1, pageSize = 5){
+   const sortByDateDesc = (a, b) => new Date(b.Date) - new Date(a.Date);
+    let postsToUse = this.#posts;
+
+    if (zoekterm) {
+        postsToUse = postsToUse.filter(post => post.Title.toLowerCase().includes(zoekterm.toLowerCase()));
     }
-    const searchResult = this.#posts.filter(post => post.Title.toLowerCase().includes(zoekterm.toLowerCase()));
-    if(searchResult.length > 5) return searchResult.slice(0,5).sort(sortByDateDesc);
-    return searchResult.sort(sortByDateDesc);
+
+    postsToUse = postsToUse.sort(sortByDateDesc);
+
+    const startIndex = (page - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    return postsToUse.slice(startIndex, endIndex);
+  }
+
+  geefPostsAllpostsPage(page = 1, pageSize = 10){
+    const sortByDateDesc = (a, b) => new Date(b.Date) - new Date(a.Date);
+    const sortedPosts = this.#posts.sort(sortByDateDesc);
+    const startIndex = (page - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    return sortedPosts.slice(startIndex, endIndex);
+    
   }
 }

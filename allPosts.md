@@ -1,20 +1,15 @@
 ---
 layout: page
-title: Posts
-tagline: Overview of recent posts
-permalink: /posts.html
-ref: Posts
+title: Overview of all posts
+tagline: Newest to oldest
+permalink: /allPosts.html
+ref: allPosts
 order: 0
-description: overview of posts in this website and post browser functionality to search relevant posts
+description: overview of all posts in this website
 ---
 
  <!-- skeleton-->
-<h4>Post Browser</h4>
-<div class="input-field">
-                    <input placeholder="Search" id="searchText" type="text" required class="validate">
-                    <button id="searchBtn">Search</button>
-                    <button id="allPosts">View All Posts</button>
-                </div>
+<h4>Overview of All Posts</h4>
    <div class="container">
       
 <h4 style="margin-bottom: 1rem; margin-top: 1rem;">Posts</h4>
