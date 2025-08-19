@@ -12,7 +12,7 @@ description: overview of all posts in this website
 <h4>Overview of All Posts</h4>
    <div class="container">
       
-<h4 style="margin-bottom: 1rem; margin-top: 1rem;">Posts</h4>
+
       
  <div id="posts"></div>
       <div id="navigatie" class="center">
