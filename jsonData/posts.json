@@ -42,5 +42,20 @@
         "Author": "Maxime Delobel",
         "ContentPreview": "In THM-BoilerCTF, we exploited a Joomla command injection for a reverse shell, found SSH creds in logs, pivoted from one user to another, abused SUID, and gained root access.",
         "Url": "/2025/08/18/THM-BoilerCTF.html"
+     },
+   {
+        "Id":"6",
+        "Title": "Cheatsheet-SQL",
+        "Date": "2025-08-19", 
+        "Author": "Maxime Delobel",
+        "ContentPreview": "Cheatsheet of basic SQL queries.",
+        "Url": "/2025/08/19/Cheatsheet-SQL.html"
+     },{
+        "Id":"7",
+        "Title": "Cheatsheet-SQL-Injection",
+        "Date": "2025-08-19", 
+        "Author": "Maxime Delobel",
+        "ContentPreview": "Cheatsheet covering the fundamentals of SQL Injection.",
+        "Url": "/2025/08/19/Cheatsheet-SQL-Injection.html"
      }]
         }

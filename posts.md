@@ -13,7 +13,7 @@ description: overview of posts in this website and post browser functionality to
 <div class="input-field">
                     <input placeholder="Search" id="searchText" type="text" required class="validate">
                     <button id="searchBtn">Search</button>
-                    <button id="allPosts">View All Posts</button>
+                    <button id="allPosts">All Posts</button>
                 </div>
    <div class="container">
       
