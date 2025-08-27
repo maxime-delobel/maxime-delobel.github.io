@@ -64,5 +64,12 @@
         "Author": "Maxime Delobel",
         "ContentPreview": "In BreakMe, we exploited a WordPress vulnerability, leveraged a TOCTOU race condition for lateral privilege escalation, and bypassed a Python sandbox to ultimately achieve root access.",
         "Url": "/2025/08/26/THM-BreakMe.html"
+     }, {
+        "Id":"9",
+        "Title": "Cheatsheet-Command-Injection",
+        "Date": "2025-08-27", 
+        "Author": "Maxime Delobel",
+        "ContentPreview": "These cheatsheets serve as my personal quick reference. Therefore, they’re less organized than the box walkthroughs, but I’ve shared them in case others find them useful.",
+        "Url": "/2025/08/27/Cheatsheet-Command-Injection.html"
      }]
         }

