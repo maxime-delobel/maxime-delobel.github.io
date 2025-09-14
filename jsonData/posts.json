@@ -71,5 +71,26 @@
         "Author": "Maxime Delobel",
         "ContentPreview": "These cheatsheets serve as my personal quick reference. Therefore, they’re less organized than the box walkthroughs, but I’ve shared them in case others find them useful.",
         "Url": "/2025/08/27/Cheatsheet-Command-Injection.html"
+     },{
+        "Id":"10",
+        "Title": "HTB-Editor",
+        "Date": "2025-08-28", 
+        "Author": "Maxime Delobel",
+        "ContentPreview": "In Editor, we exploited an XWiki RCE to gain a shell, pivoted to the user Oliver with exposed database credentials, abused Netdata group membership, and escalated to root via ndsudo.",
+        "Url": "/2025/08/28/HTB-Editor.html"
+     }, {
+        "Id":"11",
+        "Title": "HTB-Planning",
+        "Date": "2025-09-02", 
+        "Author": "Maxime Delobel",
+        "ContentPreview": "In Planning, we found Grafana via vhost fuzzing, exploited SQLi for RCE, found credentials for SSH, and escalated to root through a cronjob UI.",
+        "Url": "/2025/09/13/HTB-Planning.html"
+     }, {
+        "Id":"12",
+        "Title": "HTB-Artificial",
+        "Date": "2025-09-02", 
+        "Author": "Maxime Delobel",
+        "ContentPreview": "In Artificial, we exploited a malicious AI model upload for RCE, retrieved SSH credentials for gael, and escalated to root via the backrest backup service.",
+        "Url": "/2025/08/28/HTB-Artificial.html"
      }]
         }
