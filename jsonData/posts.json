@@ -78,5 +78,13 @@
         "Author": "Maxime Delobel",
         "ContentPreview": "In Planning, we found Grafana via vhost fuzzing, exploited SQLi for RCE, found credentials for SSH, and escalated to root through a cronjob UI.",
         "Url": "/2025/09/14/HTB-Planning.html"
+     },
+   {
+        "Id":"11",
+        "Title": "HTB-Artificial",
+        "Date": "2025-11-13", 
+        "Author": "Maxime Delobel",
+        "ContentPreview": "In Artificial, we exploited a malicious AI model upload for RCE, retrieved SSH credentials for gael, and escalated to root via the backrest backup service.",
+        "Url": "/2025/11/13/HTB-Artificial.html"
      }]
         }
