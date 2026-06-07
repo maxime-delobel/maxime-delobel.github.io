@@ -86,5 +86,13 @@
         "Author": "Maxime Delobel",
         "ContentPreview": "In Artificial, we exploited a malicious AI model upload for RCE, retrieved SSH credentials for gael, and escalated to root via the backrest backup service.",
         "Url": "/2025/11/13/HTB-Artificial.html"
+     },
+    {
+        "Id":"12",
+        "Title": "HTB-Facts",
+        "Date": "2026-03-16", 
+        "Author": "Maxime Delobel",
+        "ContentPreview": "In Facts, we escalate privileges through CameleonCMS, retrieve S3 credentials and SSH keys from a S3 bucket, then exploit Facter sudo misconfiguration to gain root access.",
+        "Url": "/2026/03/16/HTB-Facts.html"
      }]
         }

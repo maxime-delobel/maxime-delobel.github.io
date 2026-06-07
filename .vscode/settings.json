@@ -1,5 +1,7 @@
 {
     "cSpell.words": [
         "crackstation"
-    ]
+    ],
+    "snyk.advanced.organization": "e407f668-3244-4085-a863-bcf544dd8157",
+    "snyk.advanced.autoSelectOrganization": true
 }
