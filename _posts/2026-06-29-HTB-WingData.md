@@ -10,9 +10,9 @@ description: Walkthrough Writeup for HTB-Wingdata
 
 <p>In this post, I will demonstrate the exploitation of an easy difficulty machine called "WingData" on HackTheBox. Overall, it was an enjoyable box offering a nice learning experience.</p>
 
-<p>This box was pwnd on 13-03-2026. The writeup was made available on 29-06-2026 when the machine retired.</p>
+<p>This box was pwned on 13-03-2026. The writeup was made available on 29-06-2026 when the machine retired.</p>
 
-<h2> Step 1: running an Nmap scan on the target</h2>
+<h2>Step 1: running an Nmap scan on the target</h2>
 
 <pre>
 ┌──(kali㉿kali)-[~]
@@ -35,18 +35,18 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 1 IP address (1 host up) scanned in 16.51 seconds
 </pre>
 
-<p>This scan revealed that an SSH server as well as an Apache webserver is running. In the background, I also performed a scan of all tcp ports which gave the same results.</p>
+<p>This scan revealed that an SSH server as well as an Apache webserver are running. In the background, I also performed a scan of all tcp ports which gave the same results.</p>
 
-<h2> Step 2: Enumerating the webserver</h2>
+<h2>Step 2: Enumerating the webserver</h2>
 <p>Upon visiting the website running on port 80, a button called "Client Portal" caught my eye immediately:</p>
 <img src="/images/wingdata/wingdata_homepage.webp" alt="website port 80" class="postImage" style="height:60%; width:60%;">
 
-<p>Clicking the button redirected me to a WingFTP login portal where we the version of the WingFTP service was displayed:<p>
+<p>Clicking the button redirected me to a WingFTP login portal where the version of the WingFTP service was displayed:<p>
 <img src="/images/wingdata/wingdata_wingftp_login_page.webp" alt="website port 80" class="postImage" style="height:60%; width:60%;">
 
 <p>Doing a quick Google search for vulnerabilities, I found that the service is vulnerable to an unauthenticated RCE vulnerability:  <span class="url"><a href="https://github.com/advisories/GHSA-j4xf-75rr-vvrv">WingFTP RCE vulnerability.</a></span></p>
 
-<h2> Step 3: Gaining access</h2>
+<h2>Step 3: Gaining access</h2>
 
 <p>Unfortunately, this advisory page did not give enough information to launch an attack. Therefore, I decided to look for a POC of the exploit and found the following: <span class="url"><a href="https://github.com/0xcan1337/CVE-2025-47812-poC/blob/main/CVE-2025-47812-poC.py">WingFTP RCE vulnerability POC.</a></span> The vulnerability exists because the system's validator and the Lua interpreter see the string differently. The validator sees the null byte (%00) and thinks the input ends there, marking it as 'safe.' However, the Lua engine continues reading past the null byte, encountering the ]] which breaks out of the string and allows the subsequent malicious code to be executed as actual logic rather than plain text. The POC gave us the following payload:</p>
 
@@ -123,7 +123,7 @@ whoami
 wingftp
 </pre>
 
-<h2> Step 4: Lateral privilege escalation to wacky</h2>
+<h2>Step 4: Lateral privilege escalation to wacky</h2>
 
 <p>After some exploration of the /opt directory, I found some .xml files containing user credentials:</p>
 
@@ -244,7 +244,7 @@ user.txt
 wacky@wingdata:~$ 
 </pre>
 
-<h2> Step 5: Privilege escation to root</h2>
+<h2>Step 5: Privilege escalation to root</h2>
 
 <p>Running sudo -l revealed we can run a python script without a password:</p>
 
@@ -373,7 +373,7 @@ try:
 
 <p>Next, I did some more research regarding the security of the extractall function. After some time, I stumbled upon a recent vulnerability that bypasses the abovementioned data filter of the extractall function. <span class="url"><a href="https://github.com/0xDTC/CVE-2025-4517-tarfile-PATH_MAX-bypass">tar.extractall() data filter bypass.</a></span></p>
 
-<p>The vulnerability lies within Python's <code>os.path.realpath()</code> function, which the data filter relies on to verify that symlinks do not escape the extraction directory. When the resolved path exceeds PATH_MAX,Linux's 4096-byte limit on path lengths, <code>realpath()</code> silently abandons symlink resolution and falls back to plain string manipulation. A specially crafted tar archive can exploit this by chaining together symlinks with very long target names, causing the internal path to overflow PATH_MAX mid-resolution. At that point, <code>realpath()</code> processes the remaining path components as plain text, making the path appear to stay inside the extraction directory while in reality it resolves to an arbitrary location on the filesystem. The data filter sees a safe path and allows the extraction, but the OS follows the actual symlinks and writes the file wherever the attacker intended. For a detailed axplanation, I suggest the following pages: <span class="url"><a href="https://www.sentinelone.com/vulnerability-database/cve-2025-4330/">tar.extractall() data filter bypass analysis 1.</a></span>, <span class="url"><a href="https://github.com/0xDTC/CVE-2025-4517-tarfile-PATH_MAX-bypass">tar.extractall() data filter bypass analysis 2.</a></span> and <span class="url"><a href="https://github.com/AzureADTrent/CVE-2025-4517-POC">tar.extractall() data filter bypass POC.</a></span></p>
+<p>The vulnerability lies within Python's <code>os.path.realpath()</code> function, which the data filter relies on to verify that symlinks do not escape the extraction directory. When the resolved path exceeds PATH_MAX,Linux's 4096-byte limit on path lengths, <code>realpath()</code> silently abandons symlink resolution and falls back to plain string manipulation. A specially crafted tar archive can exploit this by chaining together symlinks with very long target names, causing the internal path to overflow PATH_MAX mid-resolution. At that point, <code>realpath()</code> processes the remaining path components as plain text, making the path appear to stay inside the extraction directory while in reality it resolves to an arbitrary location on the filesystem. The data filter sees a safe path and allows the extraction, but the OS follows the actual symlinks and writes the file wherever the attacker intended. For a detailed explanation, I suggest the following pages: <span class="url"><a href="https://www.sentinelone.com/vulnerability-database/cve-2025-4330/">tar.extractall() data filter bypass analysis 1.</a></span>, <span class="url"><a href="https://github.com/0xDTC/CVE-2025-4517-tarfile-PATH_MAX-bypass">tar.extractall() data filter bypass analysis 2.</a></span> and <span class="url"><a href="https://github.com/AzureADTrent/CVE-2025-4517-POC">tar.extractall() data filter bypass POC.</a></span></p>
 
 <p>In order to get root on the box, we can simply follow the instructions mentioned in the abovementioned Github POC: <span class="url"><a href="https://github.com/AzureADTrent/CVE-2025-4517-POC">tar.extractall() data filter bypass POC.</a></span>. Specifically, after cloning the repository, we upload the POC to the victim machine. First, spin up a python http server on the kali attacking machine:</p>
 
@@ -444,8 +444,8 @@ root@wingdata:/opt/backup_clients/backups# ls /root
 root.txt
 </pre>
 
-<p>Congratulations, you have succesfully rooted this box!</p>
+<p>Congratulations, you have successfully rooted this box!</p>
 
 <h2>Final thoughts</h2>
-<p>Overall, This was a nice box which I thouroughly enjoyed solving. However, the privilege escalation through the extractall python function is still a bit vague to completely comprehend as it is quite sophisticated and I'm not a python expert. Therefore, take the explanation of the python script and vulnerability with a grain of salt. Nevertheless, Wingdata was a great box to solve!</p>
+<p>Overall, This was a nice box which I thoroughly enjoyed solving. However, the privilege escalation through the extractall python function is still a bit vague to completely comprehend as it is quite sophisticated and I'm not a python expert. Therefore, take the explanation of the python script and vulnerability with a grain of salt. Nevertheless, Wingdata was a great box to solve!</p>
 <a href="/">Go to the Home Page</a>
