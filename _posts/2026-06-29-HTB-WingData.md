@@ -301,7 +301,7 @@ def main():
     args = parser.parse_args()
 
     if not validate_backup_name(args.backup):
-        print("[!] Invalid backup name. Expected format: backup_<client_id>.tar (e.g., backup_1001.tar)", file=sys.stderr)
+        print("[!] Invalid backup name. Expected format: backup_&lt;client_id&gt;.tar (e.g., backup_1001.tar)", file=sys.stderr)
         sys.exit(1)
 
     backup_path = os.path.join(BACKUP_BASE_DIR, args.backup)
