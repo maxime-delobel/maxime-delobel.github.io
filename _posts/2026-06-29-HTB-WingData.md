@@ -39,10 +39,10 @@ Nmap done: 1 IP address (1 host up) scanned in 16.51 seconds
 
 <h2> Step 2: Enumerating the webserver</h2>
 <p>Upon visiting the website running on port 80, a button called "Client Portal" caught my eye immediately:</p>
-<img src="/images/wingdata/wingdata_homepage.webp" alt="website port 80" class="postImage" style="height:60%; width:60%;>
+<img src="/images/wingdata/wingdata_homepage.webp" alt="website port 80" class="postImage" style="height:60%; width:60%;">
 
 <p>Clicking the button redirected me to a WingFTP login portal where we the version of the WingFTP service was displayed:<p>
-<img src="/images/wingdata/wingdata_wingftp_login_page.webp" alt="website port 80" class="postImage" style="height:60%; width:60%;>
+<img src="/images/wingdata/wingdata_wingftp_login_page.webp" alt="website port 80" class="postImage" style="height:60%; width:60%;">
 
 <p>Doing a quick Google search for vulnerabilities, I found that the service is vulnerable to an unauthenticated RCE vulnerability:  <span class="url"><a href="https://github.com/advisories/GHSA-j4xf-75rr-vvrv">WingFTP RCE vulnerability.</a></span></p>
 
@@ -363,11 +363,11 @@ try:
 
 <p>Using an extension that scans for vulnerable code called "Snyk", I found 2 issues. The script seems to be vulnerable to "Arbitrary File Write Via Archive Extraction" and "Path Traversal".</p>
 
-<img src="/images/wingdata/wingdata_snyk_results.webp" alt="snyk vulnerability scan results" class="postImage" style="height:60%; width:60%;>
+<img src="/images/wingdata/wingdata_snyk_results.webp" alt="snyk vulnerability scan results" class="postImage" style="height:60%; width:60%;">
 
 <p>Next, I decided to further investigate the potential vulnerable code found by Snyk.The Arbitrary file write via archive extraction caught my eye as it seems fitting to the function of this script.</p>
 
-<img src="/images/wingdata/wingdata_snyk_vulnerability_details.webp" alt="snyk vulnerability scan results" class="postImage" style="height:60%; width:60%;>
+<img src="/images/wingdata/wingdata_snyk_vulnerability_details.webp" alt="snyk vulnerability scan results" class="postImage" style="height:60%; width:60%;">
 
 <p>Based on this information, it seems the extractall function is vulnerable to tar slip. Interestingly however, the extractall function has a filter in place (filter="data") preventing the tar slip attack suggested by Snyk. This filter checks extracted files for traversal strategies such as ../../../../ before writing them and therefore mitigates the tar slip attack. 
 
