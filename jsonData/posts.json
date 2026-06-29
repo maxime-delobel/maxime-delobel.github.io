@@ -94,5 +94,13 @@
         "Author": "Maxime Delobel",
         "ContentPreview": "In Facts, we escalate privileges through CameleonCMS, retrieve S3 credentials and SSH keys from a S3 bucket, then exploit Facter sudo misconfiguration to gain root access.",
         "Url": "/2026/03/16/HTB-Facts.html"
+     },
+     {
+        "Id":"13",
+        "Title": "HTB-WingData",
+        "Date": "2026-06-29", 
+        "Author": "Maxime Delobel",
+        "ContentPreview": "In WingData, we exploit an unauthenticated RCE vulnerability in WingFTP to gain initial access, crack salted password hashes to pivot to another user, and achieve root by abusing a Python tarfile data filter bypass enabling arbitrary file write via symlink chain.",
+        "Url": "/2026/06/29/HTB-WingData.html"
      }]
         }
