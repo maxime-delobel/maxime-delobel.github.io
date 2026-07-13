@@ -102,5 +102,13 @@
         "Author": "Maxime Delobel",
         "ContentPreview": "In WingData, we exploit an unauthenticated RCE vulnerability in WingFTP to gain initial access, crack salted password hashes to pivot to another user, and achieve root by abusing a Python tarfile data filter bypass enabling arbitrary file write via symlink chain.",
         "Url": "/2026/06/29/HTB-WingData.html"
+     },
+   {
+        "Id":"14",
+        "Title": "HTB-CCTV",
+        "Date": "2026-04-01", 
+        "Author": "Maxime Delobel",
+        "ContentPreview": "In CCTV, we exploit a ZoneMinder SQL injection extracting user credentials, sniff traffic with tcpdump capturing another user’s password, and exploit MotionEye to achieve root via command injection.",
+        "Url": "/2026/07/13/HTB-CCTV.html"
      }]
         }
