@@ -183,7 +183,7 @@ uid=65534(nobody) gid=82(www-data) groups=82(www-data)
 <pre>
 ben@kobold:/$ cat /etc/group | grep docker
 docker:x:111:alice
-<pre>
+</pre>
 
 <p>It seems that Alice is a member of the docker group. Therefore, I decided to get a shell in the docker container to see if it could be escaped in one way or another.</p>
 
